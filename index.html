@@ -6,7 +6,6 @@
   <title>Portal</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-
   <script>
     (async function () {
       if (!("serviceWorker" in navigator)) return;
@@ -42,10 +41,8 @@
       location.reload();
     })();
   </script>
-
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --orange: #f4720b;
       --orange-dim: #a34d08;
@@ -59,7 +56,6 @@
       --glow-orange: 0 0 20px rgba(244,114,11,0.4);
       --glow-blue: 0 0 20px rgba(77,200,244,0.3);
     }
-
     html, body {
       width: 100%;
       min-height: 100vh;
@@ -68,8 +64,6 @@
       font-family: 'Rajdhani', sans-serif;
       overflow-x: hidden;
     }
-
-    /* Subtle scanline overlay */
     body::before {
       content: '';
       position: fixed;
@@ -84,7 +78,6 @@
       pointer-events: none;
       z-index: 1000;
     }
-
     .wrapper {
       display: flex;
       flex-direction: column;
@@ -92,8 +85,6 @@
       padding: 24px 16px 40px;
       gap: 0;
     }
-
-    /* ── Header ── */
     .header {
       display: flex;
       align-items: center;
@@ -104,24 +95,20 @@
       border-bottom: 1px solid var(--border);
       margin-bottom: 16px;
     }
-
     .logo-area {
       display: flex;
       align-items: center;
       gap: 14px;
     }
-
     .logo-area img {
       width: 52px;
       height: 52px;
       filter: drop-shadow(var(--glow-orange));
     }
-
     .title-block {
       display: flex;
       flex-direction: column;
     }
-
     .title-main {
       font-size: 28px;
       font-weight: 600;
@@ -133,7 +120,6 @@
       background-clip: text;
       line-height: 1;
     }
-
     .title-sub {
       font-family: 'Share Tech Mono', monospace;
       font-size: 10px;
@@ -142,14 +128,11 @@
       text-transform: uppercase;
       margin-top: 3px;
     }
-
     .header-right {
       display: flex;
       align-items: center;
       gap: 12px;
     }
-
-    /* Status pill */
     .status-pill {
       display: flex;
       align-items: center;
@@ -164,7 +147,6 @@
       color: var(--text-dim);
       min-width: 180px;
     }
-
     .status-dot {
       width: 6px;
       height: 6px;
@@ -173,19 +155,15 @@
       flex-shrink: 0;
       transition: background 0.3s, box-shadow 0.3s;
     }
-
     .status-dot.active {
       background: var(--orange);
       box-shadow: 0 0 8px var(--orange);
       animation: pulse 1.4s ease-in-out infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.4; }
     }
-
-    /* Fullscreen button */
     .btn-fullscreen {
       display: flex;
       align-items: center;
@@ -203,20 +181,16 @@
       cursor: pointer;
       transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
-
     .btn-fullscreen:hover {
       background: rgba(244,114,11,0.1);
       border-color: var(--orange);
       box-shadow: var(--glow-orange);
     }
-
     .btn-fullscreen svg {
       width: 14px;
       height: 14px;
       fill: currentColor;
     }
-
-    /* ── Fake fullscreen overlay ── */
     #fsOverlay {
       display: none;
       position: fixed;
@@ -237,8 +211,6 @@
       outline: none;
       display: block;
     }
-
-    /* Hold-ESC exit UI */
     #escHint {
       position: fixed;
       bottom: 28px;
@@ -254,7 +226,6 @@
       transition: opacity 0.3s ease;
     }
     #escHint.visible { opacity: 1; }
-
     #escRing {
       position: relative;
       width: 52px;
@@ -289,8 +260,6 @@
       text-align: center;
       line-height: 1.4;
     }
-
-    /* ── Download toast (fullscreen, top-right) ── */
     #dlToast {
       position: fixed;
       top: 20px;
@@ -361,15 +330,11 @@
       margin-top: 5px;
       text-align: right;
     }
-
-    /* ── Canvas frame ── */
     .canvas-frame {
       position: relative;
       width: 1280px;
       max-width: 100%;
     }
-
-    /* Corner decorations */
     .canvas-frame::before,
     .canvas-frame::after {
       content: '';
@@ -389,7 +354,6 @@
       border-bottom: 2px solid var(--blue);
       border-right: 2px solid var(--blue);
     }
-
     .corner-tr, .corner-bl {
       position: absolute;
       width: 20px;
@@ -407,7 +371,6 @@
       border-bottom: 2px solid var(--orange);
       border-left: 2px solid var(--orange);
     }
-
     canvas#canvas {
       display: block;
       width: 1280px;
@@ -417,8 +380,6 @@
       outline: none;
       border: 1px solid var(--border);
     }
-
-    /* Loading overlay — shown until game starts */
     .loading-overlay {
       position: absolute;
       inset: 0;
@@ -432,31 +393,26 @@
       transition: opacity 0.6s ease;
       z-index: 10;
     }
-
     .loading-overlay.hidden {
       opacity: 0;
     }
-
     .portal-rings {
       position: relative;
       width: 80px;
       height: 80px;
     }
-
     .ring {
       position: absolute;
       border-radius: 50%;
       border: 3px solid transparent;
       animation: spin 2s linear infinite;
     }
-
     .ring-1 {
       inset: 0;
       border-top-color: var(--orange);
       border-right-color: var(--orange);
       animation-duration: 1.8s;
     }
-
     .ring-2 {
       inset: 10px;
       border-bottom-color: var(--blue);
@@ -464,17 +420,14 @@
       animation-duration: 1.2s;
       animation-direction: reverse;
     }
-
     .ring-3 {
       inset: 22px;
       border-top-color: rgba(244,114,11,0.5);
       animation-duration: 2.4s;
     }
-
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
-
     .loading-text {
       font-family: 'Share Tech Mono', monospace;
       font-size: 11px;
@@ -482,7 +435,6 @@
       color: var(--text-dim);
       text-transform: uppercase;
     }
-
     .progress-wrap {
       width: 260px;
       height: 2px;
@@ -490,7 +442,6 @@
       border-radius: 2px;
       overflow: hidden;
     }
-
     .progress-bar-inner {
       height: 100%;
       width: 0%;
@@ -498,8 +449,6 @@
       transition: width 0.3s ease;
       border-radius: 2px;
     }
-
-    /* ── Footer / log ── */
     .footer {
       width: 1280px;
       max-width: 100%;
@@ -508,7 +457,6 @@
       flex-direction: column;
       gap: 8px;
     }
-
     .log-header {
       display: flex;
       align-items: center;
@@ -519,14 +467,12 @@
       color: var(--text-dim);
       text-transform: uppercase;
     }
-
     .log-header::after {
       content: '';
       flex: 1;
       height: 1px;
       background: var(--border);
     }
-
     textarea#output {
       width: 100%;
       height: 100px;
@@ -541,7 +487,6 @@
       resize: none;
       outline: none;
     }
-
     textarea#output:focus {
       border-color: var(--orange-dim);
     }
@@ -549,8 +494,6 @@
 </head>
 <body>
   <div class="wrapper">
-
-    <!-- Header -->
     <header class="header">
       <div class="logo-area">
         <div class="title-block">
@@ -571,15 +514,10 @@
         </button>
       </div>
     </header>
-
-    <!-- Canvas -->
     <div class="canvas-frame">
       <div class="corner-tr"></div>
       <div class="corner-bl"></div>
-
       <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
-
-      <!-- Loading overlay -->
       <div class="loading-overlay" id="loadingOverlay">
         <div class="portal-rings">
           <div class="ring ring-1"></div>
@@ -592,19 +530,12 @@
         <div class="loading-text" id="loadingText">Initializing...</div>
       </div>
     </div>
-
-    <!-- Log output -->
     <div class="footer">
       <div class="log-header">Console Output</div>
       <textarea id="output" rows="6" readonly></textarea>
     </div>
-
   </div>
-
-  <!-- Fake fullscreen overlay -->
   <div id="fsOverlay"></div>
-
-  <!-- Hold-ESC hint -->
   <div id="escHint">
     <div id="escRing">
       <svg viewBox="0 0 52 52" width="52" height="52">
@@ -614,8 +545,6 @@
     </div>
     <div id="escLabel">Hold ESC<br>to exit</div>
   </div>
-
-  <!-- Download toast (shown in fullscreen) -->
   <div id="dlToast">
     <div class="dl-toast-inner">
       <div class="dl-label">Downloading</div>
@@ -624,7 +553,6 @@
       <div class="dl-pct" id="dlPct">0%</div>
     </div>
   </div>
-
   <script type='text/javascript'>
     var statusElement   = document.getElementById('status');
     var statusDot       = document.getElementById('statusDot');
@@ -633,20 +561,15 @@
     var loadingOverlay  = document.getElementById('loadingOverlay');
     var loadingText     = document.getElementById('loadingText');
     var progressInner   = document.getElementById('progressInner');
-
     if (outputElement) outputElement.value = '';
-
     canvasElement.addEventListener('webglcontextlost', (e) => {
       alert('WebGL context lost. You will need to reload the page.');
       e.preventDefault();
     }, false);
-
-    // Set native resolution to 1280x800
     canvasElement.widthNative  = 1280;
-    canvasElement.heightNative = 800;
+    canvasElement.heightNative = 720;
     canvasElement.width  = 1280;
     canvasElement.height = 800;
-
     var Module = {
       print(...args) {
         console.log(...args);
@@ -665,7 +588,6 @@
         if (m && now - Module.setStatus.last.time < 30) return;
         Module.setStatus.last.time = now;
         Module.setStatus.last.text = text;
-
         if (m) {
           var label = m[1].trim();
           var pct   = (parseInt(m[2]) / parseInt(m[4])) * 100;
@@ -677,7 +599,6 @@
           statusElement.textContent = text || 'Ready';
           loadingText.textContent   = text || 'Ready';
           if (!text) {
-            // Game started — hide overlay
             loadingOverlay.classList.add('hidden');
             statusDot.classList.remove('active');
           } else {
@@ -694,17 +615,13 @@
           : 'All downloads complete.');
       }
     };
-
     Module.setStatus('Downloading...');
-
     window.onerror = (event) => {
       Module.setStatus('Exception thrown, see JavaScript console');
       Module.setStatus = (text) => {
         if (text) console.error('[post-exception status] ' + text);
       };
     };
-
-    // ── Fake fullscreen ──────────────────────────────────────────────
     var fsOverlay    = document.getElementById('fsOverlay');
     var escHint      = document.getElementById('escHint');
     var escArc       = document.getElementById('escArc');
@@ -718,13 +635,11 @@
     var escStart     = 0;
     var ESC_HOLD_MS  = 1500;
     var ESC_LINGER_MS = 2000;
-    var CIRCUMF      = 138.2; // 2π × 22
-
+    var CIRCUMF      = 138.2; 
     function showEscHint() {
       if (escLingerTimer) { clearTimeout(escLingerTimer); escLingerTimer = null; }
       escHint.classList.add('visible');
     }
-
     function hideEscHintSoon() {
       if (escLingerTimer) clearTimeout(escLingerTimer);
       escLingerTimer = setTimeout(function() {
@@ -732,7 +647,6 @@
         escLingerTimer = null;
       }, ESC_LINGER_MS);
     }
-
     function enterFakeFullscreen() {
       if (isFakeFS) return;
       isFakeFS = true;
@@ -740,12 +654,10 @@
       canvasNext   = canvasElement.nextSibling;
       fsOverlay.appendChild(canvasElement);
       fsOverlay.classList.add('active');
-      // Hide browser chrome-level UI
       headerEl.style.display = 'none';
       footerEl.style.display = 'none';
       canvasElement.focus();
     }
-
     function exitFakeFullscreen() {
       if (!isFakeFS) return;
       isFakeFS = false;
@@ -761,12 +673,10 @@
       }
       cancelEscHold();
     }
-
     function cancelEscHold() {
       if (escHoldTimer) { clearInterval(escHoldTimer); escHoldTimer = null; }
       escArc.style.strokeDashoffset = CIRCUMF;
     }
-
     document.addEventListener('keydown', function(e) {
       if (!isFakeFS) return;
       if (e.key === 'Escape') {
@@ -783,21 +693,17 @@
         }, 30);
       }
     }, true);
-
     document.addEventListener('keyup', function(e) {
       if (e.key === 'Escape' && isFakeFS) {
         cancelEscHold();
         hideEscHintSoon();
       }
     }, true);
-
-    // ── Download toast — mirrors exactly what the header status pill shows ──
     var dlToast   = document.getElementById('dlToast');
     var dlName    = document.getElementById('dlName');
     var dlBarFill = document.getElementById('dlBarFill');
     var dlPct     = document.getElementById('dlPct');
     var dlHideTimer = null;
-
     function showDlToast(label, pct) {
       if (dlHideTimer) { clearTimeout(dlHideTimer); dlHideTimer = null; }
       dlName.textContent    = label;
@@ -806,7 +712,6 @@
       dlPct.textContent     = p + '%';
       dlToast.classList.add('visible');
     }
-
     function hideDlToast(delay) {
       if (dlHideTimer) clearTimeout(dlHideTimer);
       dlHideTimer = setTimeout(function() {
@@ -814,22 +719,18 @@
         dlHideTimer = null;
       }, delay || 3000);
     }
-
-    // Wrap setStatus so the toast mirrors whatever the status pill already shows
     var _origSetStatus = Module.setStatus;
     Module.setStatus = function(text) {
-      _origSetStatus.call(this, text);           // keep original behaviour intact
-      if (!isFakeFS) return;                     // toast only during fullscreen
-      if (!text) { hideDlToast(3000); return; }  // game started / empty → hide
+      _origSetStatus.call(this, text);          
+      if (!isFakeFS) return;                     
+      if (!text) { hideDlToast(3000); return; } 
       var m = text.match(/([^(]+)\((\d+(?:\.\d+)?)\/(\d+)\)/);
       if (m) {
-        // Progress format: "Downloading data... (4/10)"
         var label = m[1].trim();
         var pct   = (parseFloat(m[2]) / parseFloat(m[4])) * 100;
         showDlToast(label, pct);
         if (pct >= 100) hideDlToast(3000);
       } else {
-        // Plain status text (e.g. "Downloading...", "All downloads complete.")
         showDlToast(text, 0);
         if (/complete|ready|done/i.test(text)) hideDlToast(3000);
       }
